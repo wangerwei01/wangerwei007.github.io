@@ -7,7 +7,7 @@ author:     WEW
 header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:
-    - python3
+    - Python3
     - 语言
     - 编程
 ---
