@@ -13,10 +13,10 @@ tags:
 ---
 # 前言
 
->在[上篇文章](http://qiubaiying.github.io/2016/12/26/ReactiveCocoa-基础/)中介绍了**ReactiveCocoa**的基础知识,接下来我们来深入介绍**ReactiveCocoa**及其在**MVVM**中的用法。
+>在[上篇文章](http://wangerwei007.github.io/2019/04/09/Python3基础语法学习/)中介绍了**python3**的基础知识,接下来我们来深入介绍**Python3中的List**及其用法。
 
 
-![ReactiveCocoa进阶思维导图](https://ww3.sinaimg.cn/large/006y8lVagw1fbgye3re5xj30je0iomz8.jpg)
+[//]:![ReactiveCocoa进阶思维导图](https://ww3.sinaimg.cn/large/006y8lVagw1fbgye3re5xj30je0iomz8.jpg)
 # 常见操作方法介绍
 
 
