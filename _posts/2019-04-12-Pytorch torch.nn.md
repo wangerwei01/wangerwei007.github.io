@@ -372,3 +372,94 @@ $$L_{out}=(L_{in}-1)stride-2padding+kernel_size+output_padding$$
     
     1 64 5 7
     1 64 7 7
+    
+# linear layers 线性层
+    
+### torch.nn.Linear(in_features, out_features, bias=True)
+    
+线性层其实无非拟合的一种线性关系$y= x A^{T} + b$
+
+    m = nn.Linear(20, 30)
+    input = torch.randn(128, 20)
+    output = m(input)
+    print(output.size())
+    
+    torch.Size([128, 30])
+    
+### torch.nn.Bilinear(in1_features, in2_features, out_features, bias=True)
+    
+该层为双线性层，计算的是$y = x1Ax2 + b$，其实相当于两层输入共同输入到线性中，可以理解为
+
+两种A矩阵，A1.size= 20*40 A2.size = 30*40 纯属个人理解
+
+    m = nn.Bilinear(20, 30, 40)
+    input1 = torch.randn(128, 20)
+    input2 = torch.randn(128, 30)
+    output = m(input1, input2)
+    print(output.size())
+    
+    128 40
+
+# Drop layers
+    
+### torch.nn.Dropout(p=0.5, inplace=False)
+    
+以p的概率是一些权重置为0
+
+    m = nn.Dropout(p=0.2)
+    input = torch.randn(20, 16)
+    output = m(input)
+    y=output==0
+    z=output[y]
+    print(z.size())
+    
+    64
+
+### torch.nn.Dropout2d(p=0.5, inplace=False)
+    
+同上
+
+# Vision layers
+
+### class torch.nn.PixelShuffle(upscale_factor)
+
+将shape为$[N, Cr^2, H, W]$的Tensor重新排列为shape为$[N, C, Hr, W*r]$的Tensor
+
+    >>> ps = nn.PixelShuffle(3)
+    >>> input = autograd.Variable(torch.Tensor(1, 9, 4, 4))
+    >>> output = ps(input)
+    >>> print(output.size())
+    torch.Size([1, 1, 12, 12])
+
+### torch.nn.Upsample(size=None, scale_factor=None, mode='nearest', align_corners=None)
+    
+    Input: $(N, C, W_{in}), (N, C, H_{in}, W_{in}) or (N, C, D_{in}, H_{in}, W_{in})$
+    Output: (N, C, W_{out}), (N, C, H_{out}, W_{out}) or (N, C, D_{out}, H_{out}, W_{out})$
+    
+    $D_{out}=[D_{in} * scale_factor] or size[-3]$
+    $H_{out}=[H_{in} * scale_factor] or size[-2]$
+    $W_{out}=[W_{in} * scale_factor] or size[-1]$
+    
+    
+### torch.nn.UpsamplingNearest2d(size=None, scale_factor=None)
+
+    同上
+    
+### torch.nn.UpsamplingBilinear2d(size=None, scale_factor=None)
+
+    同上
+    
+# Normalization layers
+
+### torch.nn.BatchNorm1d(num_features, eps=1e-05, momentum=0.1, affine=True)
+
+对小批量(mini-batch)的2d或3d输入进行批标准化(Batch Normalization)操作
+
+    $$y={\frac{x-mean[x]}{{\sqrt{var[x]}}+\epsilon} * gamma + beta$$
+
+其中$\gamma,beta$均是学习的量，大小为C的参数向量（C为输入大小）
+在训练时，该层计算每次输入的均值与方差，并进行移动平均。移动平均默认的动量值为0.1。在验证时，训练求得的均值/方差将用于标准化验证数据。
+
+### torch.nn.BatchNorm2d(num_features, eps=1e-05, momentum=0.1, affine=True)
+
+同上
