@@ -13,7 +13,6 @@ tags:
 ---
 
 [//]:!torch函数
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
     
 # Parameters
         
@@ -390,6 +389,7 @@ $$L_{out}=(L_{in}-1)stride-2padding+kernel_size+output_padding$$
 ### torch.nn.Bilinear(in1_features, in2_features, out_features, bias=True)
     
 该层为双线性层，计算的是$y = x1Ax2 + b$，其实相当于两层输入共同输入到线性中，可以理解为
+<a href="https://www.codecogs.com/eqnedit.php?latex=y=xA^{T}&plus;b" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y=xA^{T}&plus;b" title="y=xA^{T}+b" /></a>
 
 两种A矩阵，A1.size= 20*40 A2.size = 30*40 纯属个人理解
 
