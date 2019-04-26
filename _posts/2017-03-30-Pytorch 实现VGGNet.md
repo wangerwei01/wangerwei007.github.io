@@ -1,15 +1,15 @@
 ---
 layout:     post
-title:      Swift 3.1 的新变化「译」
-subtitle:   What’s New in Swift 3.1?
-date:       2017-03-30
-author:     BY
+title:      Pytorch 实现VGGNet
+subtitle:   Pytorch实践
+date:       2019-04-26
+author:     WEW
 header-img: img/post-bg-iWatch.jpg
 catalog: true
 tags:
-    - iOS
-    - Swift
-    - Xcode
+    - Pytorch
+    - 框架
+    - 深度学习
 ---
 
 ## VGG的网络结构
