@@ -18,9 +18,11 @@ TMD，感觉自己蠢爆了，之前练习github框架的时候，都是下载�
 # Anaconda 安装
 安装Anaconda是比较简单的，从[官网](https://www.anaconda.com/distribution/)下载对应的linux版本即可，然后./xxx.sh文件一路Enter键即可顺利安装成功。这里安装成功后需要配置下环境变量
 
-    * 1. 打开~/.bashrc
-    * 2. 在文本后面添加export PATH=/root/anaconda3/bin:$PATH
-    * 3. source ~/.bashrc
+   * 1. 打开~/.bashrc
+   
+   * 2. 在文本后面添加export PATH=/root/anaconda3/bin:$PATH
+   
+   * 3. source ~/.bashrc
 
 # Anaconda 环境(env)
 环境，我的理解类似于docker中的沙盒，每个环境互不相连，每个环境也相当于linux下的一个独立用户，可以进行环境安装对应的包，我们可以针对学习的每个框架源码建立个环境，学习完后，直接delete该环境即可，对原来系统毫无影响，简直神器。
