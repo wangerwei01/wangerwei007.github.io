@@ -1,107 +1,57 @@
+
 ---
 layout:     post
-title:      从一道网易面试题浅谈 Tagged Pointer
-subtitle:   浅谈 Tagged Pointer
-date:       2017-12-26
-author:     BY
-header-img: img/post-bg-universe.jpg
+title:      Anaconda github项目神器
+subtitle:   Stay Hungary，Stay Young
+date:       2019-04-28
+author:     WEW
+header-img: img/post-bg-art.jpg
 catalog: true
 tags:
-    - iOS
+    - github
+    - 工具
+    - 框架
 ---
 
+#### 题记
+TMD，感觉自己蠢爆了，之前练习github框架的时候，都是下载源码，然后一点点在本机配置环境，过程实在艰辛(原谅我之前没用过anaconda)，不是少安装了这个，就是缺那个包，今天在学习CenterNet源码的时候，发现作者推荐了Anaconda这个安装，我操，发现了一片蓝天感觉，世外桃源的感觉，原谅我的无知。。。。汗！
 
-## 前言
+# Anaconda 安装
+安装Anaconda是比较简单的，从[官网](https://www.anaconda.com/distribution/)下载对应的linux版本即可，然后./xxx.sh文件一路Enter键即可顺利安装成功。这里安装成功后需要配置下环境变量
 
-这篇博客九月就想写了，因为赶项目拖了到现在，抓住17年尾巴写吧~
+    * 1. 打开~/.bashrc
+    * 2. 在文本后面添加export PATH=/root/anaconda3/bin:$PATH
+    * 3. source ~/.bashrc
 
+# Anaconda 环境(env)
+环境，我的理解类似于docker中的沙盒，每个环境互不相连，每个环境也相当于linux下的一个独立用户，可以进行环境安装对应的包，我们可以针对学习的每个框架源码建立个环境，学习完后，直接delete该环境即可，对原来系统毫无影响，简直神器。
 
-## 正文
+## 新建环境
+anaconda环境的建立是通过以下命令进行的
 
-上次看了一篇 [《从一道网易面试题浅谈OC线程安全》](https://www.jianshu.com/p/cec2a41aa0e7) 的博客，主要内容是：
+    conda create -n envname 建立一个名叫envname的环境
+    conda create -n envname python=3.7.1 建立一个名叫envname的环境，且环境初始包为python3.7.1
+    
+## 查看环境
 
-作者去网易面试，面试官出了一道面试题：下面代码会发生什么问题？
+    conda env list
+    
+## 进入环境
 
-```objc
-@property (nonatomic, strong) NSString *target;
-//....
-dispatch_queue_t queue = dispatch_queue_create("parallel", DISPATCH_QUEUE_CONCURRENT);
-for (int i = 0; i < 1000000 ; i++) {
-    dispatch_async(queue, ^{
-        self.target = [NSString stringWithFormat:@"ksddkjalkjd%d",i];
-    });
-}
-```
+    conda activate envname
+    
+在进入环境后可以使用 --file file.conf配置文件进行批零安装包
 
-答案是：会 crash。
+    conda install --file file.conf
+    
+## 退出环境
 
-我们来看看对`target`属性（`strong`修饰）进行赋值，相当与 MRC 中的
+    conda deactivate
+    
+## 删除环境
+    
+    conda env remove -n py3删除名为py3的环境
+    
+# 查看当前环境安装的包
 
-```
-- (void)setTarget:(NSString *)target {
-    if (target == _target) return;
-    id pre = _target;
-    [target retain];//1.先保留新值
-    _target = target;//2.再进行赋值
-    [pre release];//3.释放旧值
-}
-```
-
-因为在 *并行队列* `DISPATCH_QUEUE_CONCURRENT` 中*异步* `dispatch_async` 对 `target`属性进行赋值，就会导致 target 已经被 `release`了，还会执行 `release`。这就是向已释放内存对象发送消息而发生 crash 。
-
-
-### 但是
-
-我敲了这段代码，执行的时候发现并不会 crash~
-
-```objc
-@property (nonatomic, strong) NSString *target;
-dispatch_queue_t queue = dispatch_queue_create("parallel", DISPATCH_QUEUE_CONCURRENT);
-for (int i = 0; i < 1000000 ; i++) {
-    dispatch_async(queue, ^{
-    	// ‘ksddkjalkjd’删除了
-        self.target = [NSString stringWithFormat:@"%d",i];
-    });
-}
-```
-
-原因就出在对 `self.target` 赋值的字符串上。博客的最后也提到了 - *‘上述代码的字符串改短一些，就不会崩溃’*，还有 `Tagged Pointer` 这个东西。
-
-我们将上面的代码修改下：
-
-
-```objc
-NSString *str = [NSString stringWithFormat:@"%d", i];
-NSLog(@"%d, %s, %p", i, object_getClassName(str), str);
-self.target = str;
-```
-
-输出：
-
-```
-0, NSTaggedPointerString, 0x3015
-```
-
-发现这个字符串类型是 `NSTaggedPointerString`，那我们来看看 Tagged Pointer 是什么？
-
-### Tagged Pointer
-
-Tagged Pointer 详细的内容可以看这里 [深入理解Tagged Pointer](http://www.infoq.com/cn/articles/deep-understanding-of-tagged-pointer)。
-
-Tagged Pointer 是一个能够提升性能、节省内存的有趣的技术。
-
-- Tagged Pointer 专门用来存储小的对象，例如 **NSNumber** 和 **NSDate**（后来可以存储小字符串）
-- Tagged Pointer 指针的值不再是地址了，而是真正的值。所以，实际上它不再是一个对象了，它只是一个披着对象皮的普通变量而已。
-- 它的内存并不存储在堆中，也不需要 malloc 和 free，所以拥有极快的读取和创建速度。
-
-
-
-
-### 参考：
-
-- [从一道网易面试题浅谈OC线程安全](https://www.jianshu.com/p/cec2a41aa0e7)
-
-- [深入理解Tagged Pointer](http://www.infoq.com/cn/articles/deep-understanding-of-tagged-pointer)
-
-- [【译】采用Tagged Pointer的字符串](http://www.cocoachina.com/ios/20150918/13449.html)
-
+    conda list
