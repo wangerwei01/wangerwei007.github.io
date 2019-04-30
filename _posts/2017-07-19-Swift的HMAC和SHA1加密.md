@@ -1,111 +1,36 @@
 ---
 layout:     post
-title:      Swift的HMAC和SHA1加密
-subtitle:   swift中利用HMAC的SHA1对文本进行加密
-date:       2017-07-19
-author:     BY
-header-img: img/post-bg-hacker.jpg
+title:      Python3 OS
+subtitle:   五一节的代码狂欢
+date:       2019-04-30
+author:     WEW
+header-img: img/post-bg-art.jpg
 catalog: true
 tags:
-    - Swift
+    - Python3
+    - 语言
+    - 编程
 ---
 
->HMAC是密钥相关的哈希运算消息认证码（Hash-based Message Authentication Code）。 HMAC运算利用哈希算法，以一个密钥和一个消息为输入，生成一个消息摘要作为输出。也就是说HMAC通过将哈希算法(SHA1, MD5)与密钥进行计算生成摘要。
+## 文件目录方法
 
-## Objectice-C
-
-在上个 Objectice-C 项目中，使用的 HMAC 和 SHA1 进行加密。如下代码：
-
-```objc
-+ (NSString *)hmacsha1:(NSString *)text key:(NSString *)secret {
-    
-    NSData *secretData = [secret dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *clearTextData = [text dataUsingEncoding:NSUTF8StringEncoding];
-    unsigned char result[20];
-    // SHA1加密
-    CCHmac(kCCHmacAlgSHA1, [secretData bytes], [secretData length], [clearTextData bytes], [clearTextData length], result);
-    char base64Result[32];
-    size_t theResultLength = 32;
-    // 转为Base64
-    Base64EncodeData(result, 20, base64Result, &theResultLength,YES);
-    NSData *theData = [NSData dataWithBytes:base64Result length:theResultLength];
-    NSString *base64EncodedResult = [[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding];
-    return base64EncodedResult;
-}
-```
-
-
-
-## swift
-
-最近用 swift 重构项目,用 Swift [重写了](https://stackoverflow.com/questions/26970807/implementing-hmac-and-sha1-encryption-in-swift?rq=1) HMAC 的 SHA1 加密方式。
-
-### 使用
-
-```swift
-// 使用HMAC和SHA加密
-let hmacResult:String = "myStringToHMAC".hmac(HMACAlgorithm.SHA1, key: "myKey")
-```
-
-### 代码
-
-使用下面代码时，需要在 OC 桥接文件`xxx-Bridging-Header`中 `#import <CommonCrypto/CommonHMAC.h>`
-
-```swift
-extension String {
-    func hmac(algorithm: HMACAlgorithm, key: String) -> String {
-        let cKey = key.cStringUsingEncoding(NSUTF8StringEncoding)
-        let cData = self.cStringUsingEncoding(NSUTF8StringEncoding)
-        var result = [CUnsignedChar](count: Int(algorithm.digestLength()), repeatedValue: 0)
-        CCHmac(algorithm.toCCHmacAlgorithm(), cKey!, strlen(cKey!), cData!, strlen(cData!), &result)
-        var hmacData:NSData = NSData(bytes: result, length: (Int(algorithm.digestLength())))
-        var hmacBase64 = hmacData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding76CharacterLineLength)
-        return String(hmacBase64)
-    }
-}
-
-enum HMACAlgorithm {
-    case MD5, SHA1, SHA224, SHA256, SHA384, SHA512
-
-    func toCCHmacAlgorithm() -> CCHmacAlgorithm {
-        var result: Int = 0
-        switch self {
-        case .MD5:
-            result = kCCHmacAlgMD5
-        case .SHA1:
-            result = kCCHmacAlgSHA1
-        case .SHA224:
-            result = kCCHmacAlgSHA224
-        case .SHA256:
-            result = kCCHmacAlgSHA256
-        case .SHA384:
-            result = kCCHmacAlgSHA384
-        case .SHA512:
-            result = kCCHmacAlgSHA512
-        }
-        return CCHmacAlgorithm(result)
-    }
-
-    func digestLength() -> Int {
-        var result: CInt = 0
-        switch self {
-        case .MD5:
-            result = CC_MD5_DIGEST_LENGTH
-        case .SHA1:
-            result = CC_SHA1_DIGEST_LENGTH
-        case .SHA224:
-            result = CC_SHA224_DIGEST_LENGTH
-        case .SHA256:
-            result = CC_SHA256_DIGEST_LENGTH
-        case .SHA384:
-            result = CC_SHA384_DIGEST_LENGTH
-        case .SHA512:
-            result = CC_SHA512_DIGEST_LENGTH
-        }
-        return Int(result)
-    }
-}
-
-
-```
-
+|方法|描述|
+|-----|-----|
+|os.getcwd()|查看当前工作目录|
+|os.chdir()|改变当前工作目录|
+|os.chmod(path, mode)|更改目录权限|
+|os.close(fd)|关闭当前文件描述符|
+|os.dup()|复制当前文件描述符|
+|os.listdir(path)|列举当前path路径下所有的文件及目录|
+|os.makedirs(path[, mode])|递归式创建path目录|
+|os.mkdir(path[, mode])|创建单个目录|
+|os.open(file, flags[, mode])|打开文件|
+|os.pathconf(path,name)|返回相关路径下文件的系统配置信息|
+|os.read(fd, n)|从文件描述符fd中读取n个字符|
+|os.remove(path)|删除path路径下的文件，如果path为文件夹则抛出异常|
+|os.removedirs(path)|递归删除目录|
+|os.rename(src, dst)|重命名文件从src到dst|
+|os.renames(old, new)|递归式重命名|
+|os.rmdir(path)|删除path指定的空目录，目录不为空抛出异常|
+|os.write(fd, str)|写入字符串到文件描述符 fd中. 返回实际写入的字符串长度|
+|os.walk(top[, topdown=True[, onerror=None[, followlinks=False]]])|输出在文件夹中的文件名通过在树中游走，向上或者向下。|
