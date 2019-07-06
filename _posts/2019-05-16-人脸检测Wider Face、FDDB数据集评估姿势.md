@@ -1,15 +1,15 @@
 ---
 layout:     post
 title:      人脸检测Wider Face、FDDB数据集评估姿势
-subtitle:   五 一节后的代码狂欢
+subtitle:   人脸检测
 date:       2019-05-16
 author:     WEW
 header-img: img/post-bg-art.jpg
 catalog: true
 tags:
-    - Python
+    - 人脸检测
     - 工具
-    - 语言
+    - 数据
 ---
 
 # Wider数据集的获取
