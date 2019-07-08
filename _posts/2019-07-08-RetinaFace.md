@@ -29,4 +29,4 @@ code github：https://github.com/deepinsight/insightface/tree/master/RetinaFace
 #### Multi-task Loss
 针对每一个anchor点i，作者设计了下列多任务损失
 
-$a=b$
+$a \bmod b$
