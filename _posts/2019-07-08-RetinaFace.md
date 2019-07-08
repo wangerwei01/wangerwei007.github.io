@@ -29,10 +29,10 @@ code github：https://github.com/deepinsight/insightface/tree/master/RetinaFace
 #### Multi-task Loss
 针对每一个anchor点i，作者设计了下列多任务损失
 
-    $$
-    R_{\mu \nu} - {1 \over 2}g_{\mu \nu}\,R + g_{\mu \nu} \Lambda
-    = {8 \pi G \over c^4} T_{\mu \nu}
-    $$
+$$
+R_{\mu \nu} - {1 \over 2}g_{\mu \nu}\,R + g_{\mu \nu} \Lambda
+= {8 \pi G \over c^4} T_{\mu \nu}
+$$
 
 
 $$a \bmod b$$
