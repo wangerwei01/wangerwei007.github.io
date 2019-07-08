@@ -11,19 +11,6 @@ tags:
     - 人脸检测
 ---
 
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-
 # RetinaFace
 论文题目：: RetinaFace：Single-stage Dense Face Localisation in the Wild
 
@@ -41,4 +28,5 @@ code github：https://github.com/deepinsight/insightface/tree/master/RetinaFace
 # Retina Face Details
 #### Multi-task Loss
 针对每一个anchor点i，作者设计了下列多任务损失
+
 $$a=b$$
