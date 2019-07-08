@@ -10,7 +10,7 @@ tags:
     - 论文
     - 人脸检测
 ---
-
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 # RetinaFace
 论文题目：: RetinaFace：Single-stage Dense Face Localisation in the Wild
 code github：https://github.com/deepinsight/insightface/tree/master/RetinaFace
