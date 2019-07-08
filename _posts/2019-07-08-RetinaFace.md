@@ -10,6 +10,7 @@ tags:
     - 论文
     - 人脸检测
 ---
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 # RetinaFace
 论文题目：: RetinaFace：Single-stage Dense Face Localisation in the Wild
 code github：https://github.com/deepinsight/insightface/tree/master/RetinaFace
@@ -26,5 +27,6 @@ code github：https://github.com/deepinsight/insightface/tree/master/RetinaFace
 # Retina Face Details
 #### Multi-task Loss
 针对每一个anchor点i，作者设计了下列多任务损失
+$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
 
 $$ L=L_{c l s}\left(P_{i}, P_{i}^{*}\right)+\lambda_{i} P_{i}^{*} L_{b o x}\left(t_{i}, t_{i}^{*}\right)+\lambda_{2} P_{i}^{*} L_{p t s}\left(l_{i}, l_{i}^{*}\right)+\lambda_{3} P_{i}^{*} L_{p i x e l} $$
