@@ -35,4 +35,4 @@ R_{\mu \nu} - {1 \over 2}g_{\mu \nu}\,R + g_{\mu \nu} \Lambda
 $$
 
 
-$$a \bmod b$$
+\(a \bmod b\)
