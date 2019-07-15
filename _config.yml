@@ -5,7 +5,7 @@ header-img: img/post-bg-desk.jpg
 email: wangerwei@tju.edu.cn
 description: "Every failure is leading towards success."
 keyword: "WEW, WEW Blog, WEW的博客, Fighting, Code, iOS, Apple, iPhone"
-url: "http://wangerwei007.github.io"          # your host, for absolute URL
+url: "http://wangerwei01.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/wangerwei01/wangerwei01.github.io.git" # you code repository
 
