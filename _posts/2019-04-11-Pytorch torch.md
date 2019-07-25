@@ -168,3 +168,7 @@ torch package 包含了多维张量的数据结构以及在其之上的多种数
 #### torch.chunk(tensor, chunks, dim=0)
       
 将输入的tensor 按照dim维度分成chunks块， 切块
+
+#### torch.repeat(n,m)
+
+可以使某个tensor先按行扩大n倍，再按照列总体重复m次
